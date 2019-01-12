@@ -4,6 +4,7 @@ include('bot.php');
 
 /**
  * This Index is updating latest prices and calling the Bot, when updating is done.
+ * Have a cron-job call this file at a timeinterval-of your choosing.
  */
 
 if(updateData()){
