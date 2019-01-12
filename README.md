@@ -4,15 +4,16 @@ A bot for automating crypto-trading and/or backtesting strategies
 This is a very basic bot with interchangeable trading-strategies.
 
 Installation:
-#1. Database for storring pricedata. Look in the dbHandler to see wich ones you need to create.
-#2. Bitfinex trading account.
+#1. Create database need with the cryptobot.sql file
+#2. Get API keys from Bitfinex trading account.
+#2a Insert keys into secret.php
 #3. You need to program your own strategy.
 
 How the bot works:
 
-Use a cron-job to activate the index.php at a time interval of your choosing. 
-It will create a table for storing the tickerprices in your chosen time interval.
+Use a cron-job to call the index.php at a time interval of your choosing. 
+It will insert the tickerprices in your chosen time interval. These prices is used by the strategy-algo, to calculate what action to take.
 
-When the data is update, it calls the Bot.
+When the data is updated, it calls the Bot.
 
 The bot has a Strategy and the strategy calculates a recommendation for selling or buying.
