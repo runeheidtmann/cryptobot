@@ -2,13 +2,6 @@
 
 class dbHandler{
 
-
-    /**
-     * All sorts of functions calling the database for specific data.
-     * 
-     * If you want to have the same functions, make sure to make databasetables, that fit them.
-     */
-
     private $conn;
     
     public function __construct(){
@@ -50,7 +43,7 @@ class dbHandler{
         $ticker_time = $data['ticker_time'];
         $ticker_price = $data['ticker_price'];
 
-		$sql = "INSERT INTO tickerPrices (id, timestamp, ticker_price)
+		$sql = "INSERT INTO Stats1 (id, timestamp, ticker_price)
         VALUES (NULL, $ticker_time, $ticker_price)";
 
 		if($this->conn->query($sql) === TRUE){
@@ -60,6 +53,19 @@ class dbHandler{
         echo "Error: " . $sql . "<br>";}
         return false;
     }
+    public function dublicateAndInsertLastKnowPrice(){
+        $sql = "SELECT * FROM Stats1 ORDER BY id DESC Limit 1";
+        $result = $this->conn->query($sql);
+        $resultArr = $result->fetch_assoc();
+        $lastPrice = $resultArr['ticker_price'];
+
+        $time = time();
+        
+        $insertQeury = "INSERT INTO Stats1 (timestamp,ticker_price) VALUES($time,$lastPrice)";
+        $results = $this->conn->query($insertQeury);
+
+    }
+
     public function tradeRecording($action,$price,$time){
 
         if($action == 1){
